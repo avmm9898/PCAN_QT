@@ -25,6 +25,9 @@
 
 // Currently defined and supported PCAN channels
 //
+#include <cstdint>
+#include <Windows.h>
+
 #define PCAN_NONEBUS                  0x00U  // Undefined/default value for a PCAN bus
 
 #define PCAN_ISABUS1                  0x21U  // PCAN-ISA interface, channel 1
@@ -575,7 +578,7 @@ TPCANStatus __stdcall CAN_GetErrorText(
 /// when found</param>
 /// <returns>A TPCANStatus error code</returns>
 TPCANStatus __stdcall CAN_LookUpChannel(
-    LPSTR Parameters, 
+    LPSTR Parameters,
     TPCANHandle* FoundChannel);
 
 #ifdef __cplusplus

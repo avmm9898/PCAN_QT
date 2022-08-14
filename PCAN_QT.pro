@@ -10,10 +10,11 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    pcan_qt.cpp
+    pcan_qt.cpp \
 
 HEADERS += \
-    pcan_qt.h
+    include/PCANBasic.h \
+    pcan_qt.h \
 
 FORMS += \
     pcan_qt.ui
@@ -22,3 +23,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lPCANBasic
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lPCANBasicd
+else:unix:!macx: LIBS += -L$$PWD/./ -lPCANBasic
+
+INCLUDEPATH += $$PWD/.
+DEPENDPATH += $$PWD/.
