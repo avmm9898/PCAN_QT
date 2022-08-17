@@ -1,9 +1,12 @@
 #ifndef PCAN_QT_H
 #define PCAN_QT_H
 
+#include "include/PCANBasic.h"
 #include <QMainWindow>
 #include <QDebug>
 #include <QTimer>
+#include <QMap>
+#include <QMessageBox>
 
 
 QT_BEGIN_NAMESPACE
@@ -20,14 +23,49 @@ public:
 
 private slots:
     void pcan_read();
+    void pcan_send(TPCANMsg msg);
+    void calc_hz();
+    void scan_channels();
 
+    void on_BTN_init_clicked();
+    void on_BTN_refresh_channel_clicked();
+    void on_BTN_fastsdo_send_clicked();
+    void on_BTN_change_baud_clicked();
+    void on_BTN_change_node_id_clicked();
+    void on_BTN_change_tpdo_hz_clicked();
+    void on_CB_tpdo_channel_currentIndexChanged(int index);
+
+    void on_BTN_read_config_clicked();
+
+    void on_BTN_release_clicked();
 
 private:
     Ui::PCAN_QT *ui;
-    QString getStringFromUnsignedChar(unsigned char *str, const int len );
+    QString uchar_to_qstr(uchar *str, const int len );
+    void qstr_to_uchar(QString qstr, uchar *str);
+    void can_init();
+    void can_uninit();
 
 
+    void data_parser(TPCANMsg msg);
+    void pop_msgbox(QString text);
+    void update_config_tpdo_hz();
+    void fastsdo_readcfg();
+
+    //current channel informations
+    TPCANChannelInformation channels;
+    ushort channel_handle=0;
+    ushort bitrate=0;
+    ushort node_id=8;
+
+    //IMU data storage
+    QMap<QString, QString> tdpo_data;
+    QMap<QString, int> tdpo_hz;
+    QMap<QString, int> tdpo_ctr;    
+    uint config_tpdo_hz[5];
+
+    //QT timer
     QTimer *tmr_read;
-
+    QTimer *tmr_1000ms;
 };
 #endif // PCAN_QT_H

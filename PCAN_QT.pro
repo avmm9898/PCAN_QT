@@ -30,3 +30,7 @@ else:unix:!macx: LIBS += -L$$PWD/./ -lPCANBasic
 
 INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
+
+RESOURCES += \
+    resources.qrc
+

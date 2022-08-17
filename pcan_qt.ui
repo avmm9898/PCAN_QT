@@ -18,468 +18,8 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="pageUART">
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <widget class="QTabWidget" name="tabWidget">
-          <property name="font">
-           <font>
-            <family>Consolas</family>
-            <pointsize>11</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <property name="movable">
-           <bool>false</bool>
-          </property>
-          <widget class="QWidget" name="tab_general">
-           <property name="font">
-            <font>
-             <family>Consolas</family>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <attribute name="title">
-            <string>General</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QLabel" name="Label_prod_info">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Consolas</family>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Product info</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_2">
-              <property name="frameShadow">
-               <enum>QFrame::Sunken</enum>
-              </property>
-              <property name="lineWidth">
-               <number>1</number>
-              </property>
-              <property name="midLineWidth">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QFormLayout" name="ConfigLayout">
-              <property name="verticalSpacing">
-               <number>11</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="Label_Baud">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>150</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>150</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Baud</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="CB_Baud">
-                <property name="minimumSize">
-                 <size>
-                  <width>150</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <property name="currentText">
-                 <string>9600</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>9600</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>115200</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>460800</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>921600</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="Label_ODR">
-                <property name="text">
-                 <string>ODR(Hz)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QComboBox" name="CB_ODR">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <property name="currentText">
-                 <string>0</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>1</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>10</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>50</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>100</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>200</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>400</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="Label_Mode">
-                <property name="text">
-                 <string>Mode</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QComboBox" name="CB_Mode">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <property name="currentText">
-                 <string>0 - 6 Axis (VRU)</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string extracomment="test comments">0 - 6 Axis (VRU)</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>1 - 9 Axis (AHRS)</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="Label_ID">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>Address ID</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QSpinBox" name="SB_ID">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximum">
-                 <number>32</number>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="Label_GWID">
-                <property name="minimumSize">
-                 <size>
-                  <width>120</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Dongle GWID</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QSpinBox" name="SB_GWID">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximum">
-                 <number>8</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>5</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QPushButton" name="BTN_load">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Consolas</family>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Load Settings</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="BTN_rst">
-                <property name="font">
-                 <font>
-                  <family>Consolas</family>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Reset Module</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="BTN_save">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Consolas</family>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Save &amp;&amp; Apply</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="tab_at">
-           <attribute name="title">
-            <string>ATCMD</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QGroupBox" name="GB_ATCMD">
-              <property name="font">
-               <font>
-                <family>Consolas</family>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="title">
-               <string/>
-              </property>
-              <layout class="QGridLayout" name="gridLayout">
-               <item row="0" column="0">
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                 <item>
-                  <widget class="QLineEdit" name="LE_at">
-                   <property name="inputMethodHints">
-                    <set>Qt::ImhPreferUppercase|Qt::ImhUppercaseOnly</set>
-                   </property>
-                   <property name="text">
-                    <string>AT+EOUT=0</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="BTN_at_send">
-                   <property name="text">
-                    <string>SEND</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item row="1" column="0">
-                <widget class="QTextBrowser" name="TB_Termial">
-                 <property name="html">
-                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Times New Roman','Times New Roman'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <layout class="QHBoxLayout" name="horizontalLayout">
-                 <item>
-                  <spacer name="horizontalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="BTN_at_clear">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>CLEAR</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="pageCAN">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
@@ -501,38 +41,29 @@ hr { height: 1px; border-width: 0; }
            </spacer>
           </item>
           <item>
-           <widget class="QComboBox" name="CB_can_nodeids"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QPushButton" name="BTN_refresh_channel">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CANOpen Node ID&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Refresh</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="SB_current_nodeid">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>255</number>
-            </property>
-            <property name="value">
-             <number>8</number>
+           <widget class="QComboBox" name="CB_can_channels"/>
+          </item>
+          <item>
+           <widget class="QComboBox" name="CB_bitrate"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="BTN_init">
+            <property name="text">
+             <string>Initialize</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="BTN_can_read_config">
+           <widget class="QPushButton" name="BTN_release">
             <property name="text">
-             <string>Set / Read Config</string>
+             <string>Release</string>
             </property>
            </widget>
           </item>
@@ -552,6 +83,25 @@ hr { height: 1px; border-width: 0; }
          </layout>
         </item>
         <item>
+         <widget class="QGroupBox" name="GB_can_rx">
+          <property name="title">
+           <string>Rx Message From Channel</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="Label_can_rx">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="GB_can_qsc">
           <property name="title">
            <string>Quick Settings</string>
@@ -564,11 +114,83 @@ hr { height: 1px; border-width: 0; }
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Control CAN NodeID=</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="SB_curr_node_id">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BTN_read_config">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Read Config</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
               <widget class="QLabel" name="label_4">
                <property name="text">
-                <string>Change CAN Baudrate</string>
+                <string>Change CAN Bitrate</string>
                </property>
               </widget>
              </item>
@@ -595,7 +217,7 @@ hr { height: 1px; border-width: 0; }
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="BTN_can_baud">
+              <widget class="QPushButton" name="BTN_change_baud">
                <property name="maximumSize">
                 <size>
                  <width>80</width>
@@ -619,7 +241,7 @@ hr { height: 1px; border-width: 0; }
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="SB_can_nodeid">
+              <widget class="QSpinBox" name="SB_change_node_id">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -638,7 +260,7 @@ hr { height: 1px; border-width: 0; }
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="BTN_can_nodeid">
+              <widget class="QPushButton" name="BTN_change_node_id">
                <property name="maximumSize">
                 <size>
                  <width>80</width>
@@ -720,13 +342,19 @@ hr { height: 1px; border-width: 0; }
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>(TPDO, Hz)</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="BTN_tpdo_hz">
+              <widget class="QPushButton" name="BTN_cahnge_tpdo_hz">
                <property name="maximumSize">
                 <size>
                  <width>80</width>
@@ -741,26 +369,7 @@ hr { height: 1px; border-width: 0; }
             </layout>
            </item>
            <item>
-            <widget class="QGroupBox" name="GB_can_rx">
-             <property name="title">
-              <string>Rx Message</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <widget class="QLabel" name="Label_can_rx">
-                <property name="text">
-                 <string>...</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="GB_can_advanced">
+            <widget class="QGroupBox" name="GB_can_send_terminal">
              <property name="title">
               <string>Send CAN Message</string>
              </property>
@@ -784,7 +393,7 @@ hr { height: 1px; border-width: 0; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="Line_can_txid">
+                 <widget class="QLineEdit" name="Line_fastsdo_txid">
                   <property name="maximumSize">
                    <size>
                     <width>80</width>
@@ -810,7 +419,7 @@ hr { height: 1px; border-width: 0; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="SB_can_dlc">
+                 <widget class="QSpinBox" name="SB_fastsdo_dlc">
                   <property name="maximumSize">
                    <size>
                     <width>50</width>
@@ -842,14 +451,14 @@ hr { height: 1px; border-width: 0; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="Line_can_data">
+                 <widget class="QLineEdit" name="Line_fastsdo_data">
                   <property name="text">
                    <string>0102030405060708</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="BTN_can_send">
+                 <widget class="QPushButton" name="BTN_fastsdo_send">
                   <property name="maximumSize">
                    <size>
                     <width>70</width>
@@ -876,7 +485,7 @@ hr { height: 1px; border-width: 0; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
-               <widget class="QTextBrowser" name="TB_can_msgbox"/>
+               <widget class="QTextBrowser" name="TB_fastsdo_msgbox"/>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -894,7 +503,7 @@ hr { height: 1px; border-width: 0; }
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="BTN_clear_can_msgbox">
+                 <widget class="QPushButton" name="BTN_clear_fastsdo_msgbox">
                   <property name="text">
                    <string>Clear</string>
                   </property>
