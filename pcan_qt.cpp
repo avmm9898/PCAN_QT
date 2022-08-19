@@ -204,6 +204,8 @@ void PCAN_QT::data_parser(TPCANMsg msg)
     QString tpdo_id_hex = QString("0x%1").arg(msg.ID, 3, 16, QLatin1Char( '0' ));
     QString data=uchar_to_qstr(msg.DATA,msg.LEN);
 
+
+
     tdpo_data[tpdo_id_hex]=data;
 
     QMap<QString, QString>::const_iterator itr = tdpo_data.constBegin();
@@ -289,6 +291,57 @@ void PCAN_QT::data_parser(TPCANMsg msg)
     }
 }
 
+void PCAN_QT::imu_parser(TPCANMsg msg)
+{
+
+    if(node_id!=0){
+        int TPDO=msg.ID-node_id;
+
+        if(TPDO==0x180){
+            //Accelerometer[G]
+            m_imu_data.acc[0]=((float)(int16_t)((uint)msg.DATA[0]|(uint)msg.DATA[1]<<8))/1000;
+            m_imu_data.acc[1]=((float)(int16_t)((uint)msg.DATA[2]|(uint)msg.DATA[3]<<8))/1000;
+            m_imu_data.acc[2]=((float)(int16_t)((uint)msg.DATA[4]|(uint)msg.DATA[5]<<8))/1000;
+        }
+        else if(TPDO==0x280){
+            //Gyroscope[deg/s]
+            m_imu_data.gyr[0]=((float)(int16_t)((uint)msg.DATA[0]|(uint)msg.DATA[1]<<8))/10;
+            m_imu_data.gyr[1]=((float)(int16_t)((uint)msg.DATA[2]|(uint)msg.DATA[3]<<8))/10;
+            m_imu_data.gyr[2]=((float)(int16_t)((uint)msg.DATA[4]|(uint)msg.DATA[5]<<8))/10;
+        }
+        else if(TPDO==0x380){
+            //Euler Angle[deg]
+            m_imu_data.eul[0]=((float)(int16_t)((uint)msg.DATA[0]|(uint)msg.DATA[1]<<8))/100;
+            m_imu_data.eul[1]=((float)(int16_t)((uint)msg.DATA[2]|(uint)msg.DATA[3]<<8))/100;
+            m_imu_data.eul[2]=((float)(int16_t)((uint)msg.DATA[4]|(uint)msg.DATA[5]<<8))/100;
+        }
+        else if(TPDO==0x480){
+            //Quaternion
+            m_imu_data.quat[0]=((float)(int16_t)((uint)msg.DATA[0]|(uint)msg.DATA[1]<<8))/10000;
+            m_imu_data.quat[1]=((float)(int16_t)((uint)msg.DATA[2]|(uint)msg.DATA[3]<<8))/10000;
+            m_imu_data.quat[2]=((float)(int16_t)((uint)msg.DATA[4]|(uint)msg.DATA[5]<<8))/10000;
+            m_imu_data.quat[3]=((float)(int16_t)((uint)msg.DATA[6]|(uint)msg.DATA[7]<<8))/10000;
+        }
+        else if(TPDO==0x680){
+            m_imu_data.prs=0;
+        }
+
+        QString str;
+
+        str.clear();
+
+        str.append(QString("%1%2%3%4\n").arg(tr(" "),20).arg(tr("X"),10).arg(tr("Y"),10).arg(tr("Z"),10));
+        str.append(QString("%1%2%3%4\n").arg(tr("Accelerometer[G] :").leftJustified(20,' ')).arg(QString::number(m_imu_data.acc[0], 'f', 3), 10).arg(QString::number(m_imu_data.acc[1], 'f', 3), 10).arg(QString::number(m_imu_data.acc[2], 'f', 3), 10));
+        str.append(QString("%1%2%3%4\n").arg(tr("Gyroscope[deg/s] :").leftJustified(20,' ')).arg(QString::number(m_imu_data.gyr[0], 'f', 3), 10).arg(QString::number(m_imu_data.gyr[1], 'f', 3), 10).arg(QString::number(m_imu_data.gyr[2], 'f', 3), 10));
+        str.append(QString("%1%2%3%4\n").arg(tr("Euler Angle[deg] :").leftJustified(20,' ')).arg(QString::number(m_imu_data.eul[0], 'f', 3), 10).arg(QString::number(m_imu_data.eul[1], 'f', 3), 10).arg(QString::number(m_imu_data.eul[2], 'f', 3), 10));
+        str.append(QString("%1%2%3%4%5\n").arg(tr(" "),20).arg(tr("W"),10).arg(tr("X"),10).arg(tr("Y"),10).arg(tr("Z"),10));
+        str.append(QString("%1%2%3%4%5\n").arg(tr("Quaternion :").leftJustified(20,' ')).arg(QString::number(m_imu_data.quat[0], 'f', 3), 10).arg(QString::number(m_imu_data.quat[1], 'f', 3), 10).arg(QString::number(m_imu_data.quat[2], 'f', 3), 10).arg(QString::number(m_imu_data.quat[3], 'f', 3), 10));
+
+
+        ui->Label_imudata->setText(str);
+    }
+}
+
 void PCAN_QT::pcan_read()
 {
     TPCANMsg msg;
@@ -304,6 +357,7 @@ void PCAN_QT::pcan_read()
         {
             // Process the received message
             data_parser(msg);
+            imu_parser(msg);
         }
         else
         {

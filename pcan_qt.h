@@ -13,6 +13,15 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class PCAN_QT; }
 QT_END_NAMESPACE
 
+struct imuData{
+    float acc[3];
+    float gyr[3];
+    float eul[3];
+    float quat[4];
+    float prs;
+};
+
+
 class PCAN_QT : public QMainWindow
 {
     Q_OBJECT
@@ -48,6 +57,7 @@ private:
 
 
     void data_parser(TPCANMsg msg);
+    void imu_parser(TPCANMsg msg);
     void pop_msgbox(QString text);
     void update_config_tpdo_hz();
     void fastsdo_readcfg();
@@ -67,5 +77,8 @@ private:
     //QT timer
     QTimer *tmr_read;
     QTimer *tmr_1000ms;
+
+    //imu data
+    imuData m_imu_data;
 };
 #endif // PCAN_QT_H
