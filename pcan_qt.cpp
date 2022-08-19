@@ -18,6 +18,8 @@ PCAN_QT::PCAN_QT(QWidget *parent)
     QStringList t_can_baud_list={"125", "250", "500", "1000"};
     QStringList t_TPDO_list={"1", "2", "3", "4", "5"};
     QStringList CB_tpdo_hz={"0", "5", "10", "20", "50", "100", "200"};
+    ui->CB_bitrate->addItems({"125 kbit/s","250 kbit/s","500 kbit/s","1000 kbit/s"});
+    ui->CB_bitrate->setCurrentIndex(2);
     ui->CB_can_baud->addItems(t_can_baud_list);
     ui->CB_can_baud->setCurrentIndex(2);
     ui->CB_tpdo_channel->addItems(t_TPDO_list);
@@ -34,7 +36,7 @@ PCAN_QT::PCAN_QT(QWidget *parent)
 
     tmr_read= new QTimer();
     connect(tmr_read, &QTimer::timeout, this, &PCAN_QT::pcan_read);
-    tmr_read->setInterval(5);
+    tmr_read->setInterval(3);
 
     tmr_1000ms= new QTimer();
     connect(tmr_1000ms, &QTimer::timeout, this, &PCAN_QT::calc_hz);
@@ -108,8 +110,7 @@ void PCAN_QT::scan_channels()
             }
         }
     }
-    ui->CB_bitrate->addItems({"125 kbit/s","250 kbit/s","500 kbit/s","1000 kbit/s"});
-    ui->CB_bitrate->setCurrentIndex(2);
+
 }
 
 void PCAN_QT::can_init()
@@ -238,55 +239,58 @@ void PCAN_QT::data_parser(TPCANMsg msg)
     }
     ui->Label_can_rx->setText(rx_display);
 
-
     //read config
-    if(msg.ID-node_id==0x580){
-        QString qstr_data=uchar_to_qstr(msg.DATA,msg.LEN);
+    if(flag_reading_cfg){
+        if(msg.ID-node_id==0x580){
+            flag_readcfg_succ=true;
 
-        QString line=tr("(%1) PTO:%2, DLC:%3, DATA:%4")
-                .arg("RX")
-                .arg(tpdo_id_hex)
-                .arg(msg.LEN)
-                .arg(qstr_data);
-        ui->TB_fastsdo_msgbox->append(line);
+            QString qstr_data=uchar_to_qstr(msg.DATA,msg.LEN);
 
-        QStringList datalist;
-        QRegularExpressionMatchIterator i = QRegularExpression("..?").globalMatch(qstr_data);
-        while (i.hasNext()) {
-            datalist << i.next().captured(0);
-        }
-        if(datalist.at(0)!="60"){
-            if(datalist.at(2)+datalist.at(1)=="2100"){//BAUD
-                uint baud=(datalist.at(7).toUInt(NULL,16)<<24)
-                        +(datalist.at(6).toUInt(NULL,16)<<16)
-                        +(datalist.at(5).toUInt(NULL,16)<<8)
-                        +datalist.at(4).toUInt(NULL,16);
-                for(int i=0;i<ui->CB_can_baud->count();i++){
-                    if(ui->CB_can_baud->itemText(i).toInt()==baud/1000){
-                        ui->CB_can_baud->setCurrentIndex(i);
+            QString line=tr("(%1) PTO:%2, DLC:%3, DATA:%4")
+                    .arg("RX")
+                    .arg(tpdo_id_hex)
+                    .arg(msg.LEN)
+                    .arg(qstr_data);
+            ui->TB_fastsdo_msgbox->append(line);
+
+            QStringList datalist;
+            QRegularExpressionMatchIterator i = QRegularExpression("..?").globalMatch(qstr_data);
+            while (i.hasNext()) {
+                datalist << i.next().captured(0);
+            }
+            if(datalist.at(0)!="60"){
+                if(datalist.at(2)+datalist.at(1)=="2100"){//BAUD
+                    uint baud=(datalist.at(7).toUInt(NULL,16)<<24)
+                            +(datalist.at(6).toUInt(NULL,16)<<16)
+                            +(datalist.at(5).toUInt(NULL,16)<<8)
+                            +datalist.at(4).toUInt(NULL,16);
+                    for(int i=0;i<ui->CB_can_baud->count();i++){
+                        if(ui->CB_can_baud->itemText(i).toInt()==baud/1000){
+                            ui->CB_can_baud->setCurrentIndex(i);
+                        }
                     }
                 }
-            }
-            else if(datalist.at(2)+datalist.at(1)=="2101"){//ID
-                uint id=(datalist.at(7).toUInt(NULL,16)<<24)
-                        +(datalist.at(6).toUInt(NULL,16)<<16)
-                        +(datalist.at(5).toUInt(NULL,16)<<8)
-                        +datalist.at(4).toUInt(NULL,16);
-                ui->SB_change_node_id->setValue(id);
-            }
-            else if(datalist.at(2)=="18"){//TPDO FREQUENCY
+                else if(datalist.at(2)+datalist.at(1)=="2101"){//ID
+                    uint id=(datalist.at(7).toUInt(NULL,16)<<24)
+                            +(datalist.at(6).toUInt(NULL,16)<<16)
+                            +(datalist.at(5).toUInt(NULL,16)<<8)
+                            +datalist.at(4).toUInt(NULL,16);
+                    ui->SB_change_node_id->setValue(id);
+                }
+                else if(datalist.at(2)=="18"){//TPDO FREQUENCY
 
-                uint freq=1000/((datalist.at(5).toUInt(NULL,16)<<8)
-                                +datalist.at(4).toUInt(NULL,16));
+                    uint freq=1000/((datalist.at(5).toUInt(NULL,16)<<8)
+                                    +datalist.at(4).toUInt(NULL,16));
 
-                if(datalist.at(1)=="00"){config_tpdo_hz[0]=freq;}
-                else if(datalist.at(1)=="01"){config_tpdo_hz[1]=freq;}
-                else if(datalist.at(1)=="02"){config_tpdo_hz[2]=freq;}
-                else if(datalist.at(1)=="03"){config_tpdo_hz[3]=freq;}
-                else if(datalist.at(1)=="04"){config_tpdo_hz[4]=freq;}
-                update_config_tpdo_hz();
+                    if(datalist.at(1)=="00"){config_tpdo_hz[0]=freq;}
+                    else if(datalist.at(1)=="01"){config_tpdo_hz[1]=freq;}
+                    else if(datalist.at(1)=="02"){config_tpdo_hz[2]=freq;}
+                    else if(datalist.at(1)=="03"){config_tpdo_hz[3]=freq;}
+                    else if(datalist.at(1)=="04"){config_tpdo_hz[4]=freq;}
+                    update_config_tpdo_hz();
+                }
+
             }
-
         }
     }
 }
@@ -441,6 +445,17 @@ void PCAN_QT::fastsdo_readcfg()
 
 }
 
+void PCAN_QT::reading_cfg()
+{
+    if(flag_readcfg_succ){
+        ui->GB_qsc_content->setEnabled(true);
+    }else{
+        ui->GB_qsc_content->setEnabled(false);
+    }
+    flag_reading_cfg=false;
+    flag_readcfg_succ=false;
+}
+
 void PCAN_QT::update_config_tpdo_hz()
 {
     for(int i=0;i<ui->CB_tpdo_hz->count();i++){
@@ -469,7 +484,10 @@ void PCAN_QT::on_BTN_read_config_clicked()
 {
     node_id=ui->SB_curr_node_id->value();
     ui->Line_fastsdo_txid->setText(QString::number(node_id + 0x600, 16));
+
+    flag_reading_cfg=true;
     fastsdo_readcfg();
+    QTimer::singleShot(500, this,SLOT(reading_cfg()));
 
 }
 void PCAN_QT::on_BTN_fastsdo_send_clicked()
@@ -566,8 +584,8 @@ void PCAN_QT::on_CB_tpdo_channel_currentIndexChanged(int index)
 {
     update_config_tpdo_hz();
 }
-
-
-
-
+void PCAN_QT::on_BTN_clr_TB_fastsdo_msgbox_clicked()
+{
+    ui->TB_fastsdo_msgbox->clear();
+}
 

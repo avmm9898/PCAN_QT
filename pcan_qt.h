@@ -35,6 +35,7 @@ private slots:
     void pcan_send(TPCANMsg msg);
     void calc_hz();
     void scan_channels();
+    void reading_cfg();
 
     void on_BTN_init_clicked();
     void on_BTN_refresh_channel_clicked();
@@ -47,6 +48,8 @@ private slots:
     void on_BTN_read_config_clicked();
 
     void on_BTN_release_clicked();
+
+    void on_BTN_clr_TB_fastsdo_msgbox_clicked();
 
 private:
     Ui::PCAN_QT *ui;
@@ -80,5 +83,8 @@ private:
 
     //imu data
     imuData m_imu_data;
+
+    bool flag_reading_cfg=false,flag_readcfg_succ=false;
+
 };
 #endif // PCAN_QT_H
