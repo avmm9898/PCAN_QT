@@ -14,11 +14,11 @@ namespace Ui { class PCAN_QT; }
 QT_END_NAMESPACE
 
 struct imuData{
-    float acc[3];
-    float gyr[3];
-    float eul[3];
-    float quat[4];
-    float prs;
+    float acc[3]={0};
+    float gyr[3]={0};
+    float eul[3]={0};
+    float quat[4]={0};
+    float prs=0;
 };
 
 

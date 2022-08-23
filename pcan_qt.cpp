@@ -165,6 +165,7 @@ void PCAN_QT::can_init()
         tmr_read->start();
         tmr_1000ms->start();
     }
+    ui->GB_qsc_content->setEnabled(false);
 }
 
 void PCAN_QT::can_uninit()
@@ -513,7 +514,7 @@ void PCAN_QT::on_BTN_fastsdo_send_clicked()
 }
 void PCAN_QT::on_BTN_change_baud_clicked()
 {
-    uint decimal = ui->CB_can_baud->currentText().toUInt();
+    uint decimal = ui->CB_can_baud->currentText().toUInt()*1000;
     QString hex = QString("%1").arg(decimal, 8, 16, QLatin1Char( '0' ));
     QString reverse_hex="";
 
